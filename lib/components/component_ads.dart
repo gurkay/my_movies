@@ -31,6 +31,12 @@ class _ComponentAdsState extends State<ComponentAds> {
           _isLoaded = false;
           _ad.dispose();
         },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (_) => print('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (_) => print('Ad closed.'),
+        // Called when an impression occurs on the ad.
+        onAdImpression: (_) => print('Ad impression.'),
       ),
     );
 
@@ -55,7 +61,7 @@ class _ComponentAdsState extends State<ComponentAds> {
         alignment: Alignment.center,
       );
     } else {
-      return Container(); //return CircularProgressIndicator();
+      return CircularProgressIndicator();
     }
   }
 

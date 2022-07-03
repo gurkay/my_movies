@@ -42,37 +42,15 @@ class _ScreenMovieListState extends State<ScreenMovieList> {
   Icon visibleIcon = Icon(Icons.search);
   Widget searchBar = Text('Yükleniyor...');
 
-  BannerAd? _ad;
-  bool _isLoaded = false;
   @override
   void initState() {
     helper = HttpHelper();
     init();
     super.initState();
-    _ad = BannerAd(
-      size: AdSize.banner,
-      request: AdRequest(),
-      adUnitId: AdHelper.bannerAdUnitId,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (_, error) {
-          print('Ad Failed to load with Error: ${error.message}');
-          _isLoaded = false;
-          _ad!.dispose();
-        },
-      ),
-    );
-
-    _ad!.load();
   }
 
   @override
   void dispose() {
-    _ad!.dispose();
     super.dispose();
   }
 
