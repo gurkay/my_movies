@@ -1,15 +1,18 @@
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:my_movies/components/menu_drawer_list.dart';
-import 'package:my_movies/models/argument.dart';
-import 'package:my_movies/models/movie.dart';
-import 'package:my_movies/models/tv.dart';
+
+import '../components/menu_drawer_list.dart';
+import '../components/component_ads.dart';
+
+import '../models/argument.dart';
+import '../models/movie.dart';
+import '../models/tv.dart';
 
 import '../screens/screen_movie_detail.dart';
+
 import '../services/http_helper.dart';
+import '../services/ad_helper.dart';
 
 class ScreenMovieList extends StatefulWidget {
   static String routeName = '/screen_movie_list';
@@ -39,11 +42,38 @@ class _ScreenMovieListState extends State<ScreenMovieList> {
   Icon visibleIcon = Icon(Icons.search);
   Widget searchBar = Text('Yükleniyor...');
 
+  BannerAd? _ad;
+  bool _isLoaded = false;
   @override
   void initState() {
     helper = HttpHelper();
     init();
     super.initState();
+    _ad = BannerAd(
+      size: AdSize.banner,
+      request: AdRequest(),
+      adUnitId: AdHelper.bannerAdUnitId,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (_, error) {
+          print('Ad Failed to load with Error: ${error.message}');
+          _isLoaded = false;
+          _ad!.dispose();
+        },
+      ),
+    );
+
+    _ad!.load();
+  }
+
+  @override
+  void dispose() {
+    _ad!.dispose();
+    super.dispose();
   }
 
   Future init() async {
@@ -212,6 +242,7 @@ class _ScreenMovieListState extends State<ScreenMovieList> {
           );
         },
       ),
+      bottomNavigationBar: ComponentAds(),
     );
   }
 }

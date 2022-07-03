@@ -8,6 +8,8 @@
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-9727420285169366~8411424944</string>
 	<key>CFBundleDisplayName</key>
 	<string>My Movies</string>
 	<key>CFBundleExecutable</key>
