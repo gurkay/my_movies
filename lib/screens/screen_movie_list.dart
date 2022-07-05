@@ -1,9 +1,7 @@
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 import '../components/menu_drawer_list.dart';
-import '../components/component_ads.dart';
 
 import '../models/argument.dart';
 import '../models/movie.dart';
@@ -12,7 +10,6 @@ import '../models/tv.dart';
 import '../screens/screen_movie_detail.dart';
 
 import '../services/http_helper.dart';
-import '../services/ad_helper.dart';
 
 class ScreenMovieList extends StatefulWidget {
   static String routeName = '/screen_movie_list';
@@ -220,7 +217,6 @@ class _ScreenMovieListState extends State<ScreenMovieList> {
           );
         },
       ),
-      bottomNavigationBar: ComponentAds(),
     );
   }
 }
